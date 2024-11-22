@@ -93,5 +93,5 @@ var getCmd = &cobra.Command{
 func init() {
 	flag := &FlagStruct{}
 
-	getCmd.Flags().StringVarP(&flag.BaseUrl, "base url", "b", "", "Set the base URlL")
+	getCmd.Flags().StringVarP(&flag.BaseUrl, "base url", "b", "", "Set the base URL")
 }
