@@ -8,11 +8,6 @@ import (
 	"net/http"
 	"os"
 
-	// "http_client/cmd"
-	// "io"
-	// "net/http"
-	// "regexp"
-
 	"github.com/spf13/cobra"
 )
 
@@ -35,22 +30,24 @@ var postCmd = &cobra.Command{
 		}
 
 		fmt.Println("URL:", PostRequestVar.BaseUrl)
-		val, err := json.Marshal(PostRequestVar.Body)
+		val, err := json.MarshalIndent(PostRequestVar.Body, "", "  ")
 		if err != nil {
 			fmt.Println(err)
 		}
 		fmt.Println("URL:", string(val))
-		 resp,err:=http.Post(PostRequestVar.BaseUrl,"application/json",bytes.NewBuffer(val)) 
-		 if err!=nil{
-			fmt.Println("result not found",err)
+		resp, err := http.Post(PostRequestVar.BaseUrl, "application/json", bytes.NewBuffer([]byte(PostRequestVar.Body)))
+		if err != nil {
+			fmt.Println("result not found", err)
+			return
 		}
 
-		result,err:=io.ReadAll(resp.Body)
-		if err!=nil{
-			fmt.Println("post request error:",err)
+		result, err := io.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Println("post request error:", err)
+			return
 		}
-		resp.Body.Close()
-		fmt.Println("\n",string(result))
+		defer resp.Body.Close()
+		fmt.Println("\n", string(result))
 	},
 }
 
