@@ -14,7 +14,7 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "http_client	",
+	Use:   "http_client",
 	Short: "A brief description of your application",
 	Long: `This is A simple HTTP Client`,
 	Run: func(cmd *cobra.Command, args []string) { 
@@ -36,6 +36,8 @@ func init() {
 	// when this action is called directly.
 	rootCmd.AddCommand(getCmd)
 	rootCmd.AddCommand(postCmd)
+	rootCmd.AddCommand(deleteCmd)
+	rootCmd.AddCommand(putCmd)
 }
 
 func Execute() {
